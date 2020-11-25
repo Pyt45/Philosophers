@@ -1,0 +1,14 @@
+#include "../include/philo_one.h"
+
+void	yourturn()
+{
+	int		i;
+
+	i = 0;
+	while (i < 4)
+	{
+		usleep((int)pow(10, 4)); // 1 s
+		printf("your turn %d\n", i);
+		i++;
+	}
+}

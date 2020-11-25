@@ -14,7 +14,9 @@ NAME = philo_one
 
 PHILO_LIB = philo_one.a
 
-SRC = src/create_thread.c
+SRC = 	src/create_thread.c \
+		src/myturn.c \
+		src/yourturn.c
 
 FLAGS = 
 
