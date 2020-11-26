@@ -7,7 +7,7 @@ void	*myturn(void *arg)
 	i = 0;
 	while (i < 8)
 	{
-		usleep((int)pow(10, 4)); // 10^6 = 1s , 10^4 = 10 milliseconds
+		usleep((int)pow(10, 5)); // 10^6 = 1s , 10^4 = 10 milliseconds
 		printf("my turn %d\n", i);
 		i++;
 	}

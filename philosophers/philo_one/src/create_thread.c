@@ -6,112 +6,11 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:52:51 by aaqlzim           #+#    #+#             */
-/*   Updated: 2020/11/25 14:33:48 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2020/11/26 14:56:31 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_one.h"
-
-// int		g = 0;
-// void	*mythreadFun(void *arg)
-// {
-// 	int			*id;
-// 	static int 	s = 0;
-
-// 	id = (int *)arg;
-// 	s++; g++;
-// 	sleep(1);
-// 	printf("My thread id %d and static is %d and global is %d\n", *id, s, g);
-// 	return NULL;
-// }
-
-void	*myturn(void *arg)
-{
-	int		i;
-
-	i = 0;
-	while (i < 8)
-	{
-		usleep((int)pow(10, 4)); // 10^6 = 1s , 10^4 = 10 milliseconds
-		printf("my turn %d\n", i);
-		i++;
-	}
-	return (NULL);
-}
-
-void	create_philo(t_thread *l_thread)
-{
-	int		i;
-	int		err;
-	// i = 0;
-	// while (i < 3)
-	// {
-	// 	if ((err = pthread_create(&l_thread->newthread, NULL, mythreadFun,
-	// 	(void *)&l_thread->newthread)))
-	// 		printf("%s\n", strerror(err));
-	// 	pthread_join(l_thread->newthread, NULL);
-	// 	i++;
-	// }
-	i = -1;
-	while (++i < l_thread->num_philo)
-	{
-		if ((err = pthread_create(&l_thread->newthread, NULL, myturn, NULL)))
-			printf("Error : %s\n", strerror(err));
-		// yourturn();
-		pthread_join(l_thread->newthread, NULL);
-	}
-}
-
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <string.h>
-// #include <pthread.h>
-// #include <math.h>
-// #include <unistd.h>
-// #include <sys/time.h>
-
-// typedef struct			s_thread
-// {
-// 	int					num_of_philo;
-// 	int					time_to_die;
-// 	int					time_to_eat;
-// 	int					time_to_sleep;
-// 	int					num_of_times_each_philo_must_eat;
-// 	pthread_t			thread;
-// 	struct timeval		start;
-// 	struct timeval		end;
-// 	struct	s_thread	*next;
-// }						t_thread;
-
-
-// void	*myturn(void *arg)
-// {
-// 	for (int i = 0; i < 8; i++)
-// 	{
-// 		usleep((int)pow(10, 0));
-// 		printf("My turn %d\n", i);
-// 	}
-// 	return (NULL);
-// }
-
-// void	yourturn()
-// {
-// 	for (int i = 0; i < 5; i++)
-// 	{
-// 		usleep((int)pow(10, 0));
-// 		printf("Your turn %d\n", i);
-// 	}	
-// }
-
-// void	*ft_memset(void *ptr, int x, size_t n)
-// {
-// 	char	*str;
-
-// 	str = (char *)ptr;
-// 	while (n--)
-// 		*str++ = (unsigned char)x;
-// 	return ((void *)ptr);
-// }
 
 // unsigned int get_time_of_excute(t_thread *l_thread)
 // {
@@ -119,20 +18,57 @@ void	create_philo(t_thread *l_thread)
 // 	(l_thread->start.tv_sec * 1000 + (l_thread->start.tv_usec / 1000)));
 // }
 
-// int		main(int argc, char **argv)
+// void	*try_this(void *arg)
 // {
-// 	int			i;
-// 	t_thread	l_thread;
+// 	pthread_mutex_lock(&g_lock);
 
-// 	gettimeofday(&l_thread.start, NULL);
-// 	i = -1;
-// 	while (++i < atoi(argv[1]))
-// 	{
-// 		pthread_create(&l_thread.thread, NULL, myturn, NULL);
-// 		yourturn();
-// 		pthread_join(l_thread.thread, NULL);
-// 	}
-// 	gettimeofday(&l_thread.end, NULL);
-// 	printf("time counted since beginning %ld ms\n", get_time_of_excute(&l_thread));
-// 	return (0);
+// 	unsigned long i = 0;
+// 	g_forks += 1;
+// 	printf("\nJob %d has started\n", g_forks);
+// 	sleep(1);
+// 	printf("\nJob %d has finished\n", g_forks);
+// 	pthread_mutex_unlock(&g_lock);
+// 	// pthread_mutex_destroy(&g_lock);
+// 	return (NULL);
 // }
+
+void	*philo_life(void *arg)
+{
+	int		life;
+
+	life = 1;
+	while (life)
+	{
+		life = is_do_action(g_action);
+		if (life == -1)
+			break ;
+	}
+	return (NULL);
+}
+
+void	create_philo(t_thread *l_thread)
+{
+	int			i;
+
+	// gettimeofday(&l_thread->start, NULL);
+	// i = -1;
+	// tmp = l_thread;
+	// while (++i < tmp->content.num_of_philo)
+	// {
+	// 	pthread_create(&tmp->thread, NULL, myturn, NULL);
+	// 	yourturn();
+	// 	pthread_join(tmp->thread, NULL);
+	// }
+	// gettimeofday(&tmp->end, NULL);
+	// printf("time counted since beginning %u ms\n", get_time_of_excute(tmp));
+	i = -1;
+	g_forks = 2;
+	g_action = 2;
+	pthread_mutex_init(&g_lock, NULL);
+	while (l_thread && ++i < l_thread->num_of_philo)
+	{
+		pthread_create(&l_thread->thread, NULL, philo_life, NULL);
+		pthread_join(l_thread->thread, NULL);
+		l_thread = l_thread->next;
+	}
+}

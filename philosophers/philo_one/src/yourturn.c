@@ -7,7 +7,7 @@ void	yourturn()
 	i = 0;
 	while (i < 4)
 	{
-		usleep((int)pow(10, 4)); // 1 s
+		usleep((int)pow(10, 5)); // 1 s
 		printf("your turn %d\n", i);
 		i++;
 	}

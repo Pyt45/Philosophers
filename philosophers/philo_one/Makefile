@@ -6,7 +6,7 @@
 #    By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/25 09:44:47 by aaqlzim           #+#    #+#              #
-#    Updated: 2020/11/25 13:02:19 by aaqlzim          ###   ########.fr        #
+#    Updated: 2020/11/26 14:29:20 by aaqlzim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ PHILO_LIB = philo_one.a
 
 SRC = 	src/create_thread.c \
 		src/myturn.c \
-		src/yourturn.c
+		src/yourturn.c \
+		src/philo_action.c
 
 FLAGS = 
 
