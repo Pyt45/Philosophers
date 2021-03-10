@@ -1,6 +1,6 @@
 #include "../include/philo_one.h"
 
-void	yourturn()
+void	yourturn(void *arg)
 {
 	int		i;
 

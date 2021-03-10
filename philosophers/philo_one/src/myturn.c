@@ -3,7 +3,6 @@
 void	*myturn(void *arg)
 {
 	int		i;
-
 	i = 0;
 	while (i < 8)
 	{

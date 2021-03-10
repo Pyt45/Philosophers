@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2020/11/26 14:53:31 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/10 16:42:18 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int						g_action;
 pthread_mutex_t			g_lock;
 
 void					*myturn(void *arg);
-void					yourturn();
+void					yourturn(void *arg);
 void					*philo_life(void *arg);
 int						is_sleep(int action);
 int						is_eat(int action);
