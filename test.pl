@@ -3,13 +3,9 @@
 use strict;
 use warnings;
 use feature qw( say );
-use Data::Dumper;
-use Data::Show;
-use Git::Repository;
-
-strcut {
-	char *checker = malloc(8 * sizeof(char));
-}
+# use Data::Dumper;
+# use Data::Show;
+print "hello\n";
 # use Data::Printer;
 # use LWP::UserAgent;
 # use Time::Piece;
@@ -127,14 +123,12 @@ strcut {
 
 # open my $filehandle, '<', $filename or die "Can't open $filename, $!";
 
-# while (chomp(my $line = <$filehandle>)) {
+#while (chomp(my $line = <$filehandle>)) {
 # 	say $line;
-# }
+#}
 
 # chomp( my @fileArr = <$filehandle> );
 
 # for my $val ( @fileArr ) {
 # 	print "$val \n";
 # }
-
-my $r = Git::Repository->new();
