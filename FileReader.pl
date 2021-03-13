@@ -13,11 +13,12 @@ sub readFile
 
     for my $line ( @fileArr ) {
         # show $line;
-        system($line);
+        say $line;
+        # system($line);
     }
     return ;
 }
 
-my @filename = ("file");
+my @filename = ("Github.pl");
 
 readFile($filename[0]);

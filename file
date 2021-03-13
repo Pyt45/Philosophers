@@ -1,3 +1,2 @@
-pwd
-echo hi
-perl test.pl
+perl pwd.pl
+perl FileReader.pl

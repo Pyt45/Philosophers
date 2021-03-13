@@ -1,14 +1,11 @@
 #!/usr/bin/perl
 
-use strict;
-use warnings;
-use feature qw( say );
 # use Data::Dumper;
 # use Data::Show;
-print "hello\n";
 # use Data::Printer;
 # use LWP::UserAgent;
 # use Time::Piece;
+
 
 # sub modify
 # {
