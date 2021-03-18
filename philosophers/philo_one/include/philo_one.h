@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/10 16:42:18 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/18 16:38:14 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct			s_content
 	int					time_to_die;
 	int					time_to_eat;
 	int					time_to_sleep;
-	int					num_of_times_each_philo_must_eat;	
+	int					num_of_eat;	
 }						t_content;
 
 typedef struct			s_thread
@@ -42,17 +42,17 @@ typedef struct			s_thread
 	int					num_of_philo;
 	struct timeval		start;
 	struct timeval		end;
-	pthread_t			thread;
-	struct	s_thread	*next;
-	struct	s_thread	*prev;
+	pthread_t			*thread;
+	// struct	s_thread	*next;
+	// struct	s_thread	*prev;
 }						t_thread;
 
-int						g_forks;
+int						*g_forks;
 int						g_action;
+int						g_philo_num;
 pthread_mutex_t			g_lock;
 
-void					*myturn(void *arg);
-void					yourturn(void *arg);
+
 void					*philo_life(void *arg);
 int						is_sleep(int action);
 int						is_eat(int action);
@@ -60,5 +60,6 @@ int						is_die(int action);
 int						is_thinking(int action);
 int						is_do_action(int action);
 void					create_philo(t_thread *l_thread);
+int						ft_atoi(const char *str);
 
 #endif
