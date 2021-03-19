@@ -53,18 +53,6 @@ func some(x int, y int) int {
 }
 
 func main() {
-  // file, err := os.Open("file")
-  // if err != nil {
-    // log.Fatalf("Error open file: %v", err)
-  // }
-  // defer file.Close()
-  // bytesRead := make([]byte, 33)
-// 
-  // n, err := file.Read(bytesRead)
-  // if err != nil {
-    // log.Fatalf("error reading from file: %v", err)
-  // }
-  // log.Printf("We read \"%s\" into bytesRead (%d bytes)", string(bytesRead), n)
 
   ReaderFile("file")
   r := some(10, 8)
