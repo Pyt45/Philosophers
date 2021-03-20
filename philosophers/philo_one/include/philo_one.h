@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/19 12:02:48 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/20 18:00:33 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,27 @@ typedef struct			s_thread
 	int					num_of_philo;
 	struct timeval		start;
 	struct timeval		end;
-	pthread_t			*thread;
+	pthread_t			thread[5];
 	int					id;
+	int					l_fork;
+	int					r_fork;
+	long int 			t_limit;
 	// struct	s_thread	*next;
 	// struct	s_thread	*prev;
 }						t_thread;
 
 int						*g_forks;
+int						g_die;
 int						g_action;
+int						n_philo;
+t_thread 				g_philo[5];
+pthread_t				th_health;
 // pthread_mutex_t			*g_LeftLock;
 // pthread_mutex_t			*g_RightLock;
 // pthread_mutex_t			*g_PrintLock;
 // pthread_mutex_t			g_lock;
 pthread_mutex_t			*p_lock;
-
+pthread_mutex_t			eat_lock;
 
 void					*philo_life(void *arg);
 int						is_sleep(int action);

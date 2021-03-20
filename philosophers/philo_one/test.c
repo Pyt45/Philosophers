@@ -6,106 +6,120 @@
 #include <math.h>
 #include <sys/time.h>
 
-pthread_mutex_t lock;
-int j;
-pthread_t tid[2];
-int c;
+// # define NUM 5
+// # define MAX_SLEEP_TIME 5
 
-// void 	*try_this(void *arg)
+// enum {THINK, HUNGRY, EAT} state[NUM];
+
+// pthread_mutex_t		mutex_lock;
+// pthread_cond_t 		cond_vars[NUM];
+// int					thread_id[NUM];
+// pthread_t 			tid[NUM];
+
+// void	init()
 // {
-// 	pthread_mutex_lock(&lock);
-// 	unsigned int i = 0;
-// 	c += 1;
-// 	printf("\n Job %d has started\n", c);
+// 	int i = 0;
+// 	for (i = 0; i < NUM; i++)
+// 	{
+// 		state[i] = THINK;
+// 		thread_id[i] = i;
+// 		pthread_cond_init(&cond_vars[i], NULL);
+// 	}
+// 	pthread_mutex_init(&mutex_lock,NULL);
+// }
 
-// 	for (i = 0; i < 0xFFFFFFFF; i++)
-// 		;
-// 	printf("\n Job %d has finished\n", c);
-// 	pthread_mutex_unlock(&lock);
+// int 	left_f(int num)
+// {
+// 	if (!num)
+// 		return NUM - 1;
+// 	return num - 1;
+// }
+
+// int right_f(int num)
+// {
+// 	if (num == NUM - 1)
+// 		return 0;
+// 	return num + 1;
+// }
+
+// void	test(int i)
+// {
+// 	if (state[left_f(i)] != EAT && state[i] == HUNGRY && state[right_f(i)] != EAT)
+// 	{
+// 		state[i] = EAT;
+// 		pthread_cond_signal(&cond_vars[i]);
+// 	}
+// }
+
+// void	pickup_forks(int num) {
+// 	pthread_mutex_lock(&mutex_lock);
+
+// 	state[num] = HUNGRY;
+// 	test(num);
+// 	while (state[num] != EAT)
+// 		pthread_cond_wait(&cond_vars[num], &mutex_lock);
+// 	pthread_mutex_unlock(&mutex_lock);
+// }
+
+// void	return_forks(int num) {
+// 	pthread_mutex_lock(&mutex_lock);
+
+// 	state[num] = THINK;
+// 	test(left_f(num));
+// 	test(right_f(num));
+
+// 	pthread_mutex_unlock(&mutex_lock);
+// }
+
+// void	eating(int s_time)
+// {
+// 	sleep(s_time);
+// }
+
+// void	thinking(int s_time)
+// {
+// 	sleep(s_time);
+// }
+
+// void	*philosoper(void *arg)
+// {
+// 	int *lnum = (int *)arg;
+// 	int num = *lnum;
+// 	int s_time;
+// 	int t_loop = 0;
+
+// 	srandom((unsigned)time(NULL));
+// 	while (t_loop < 5)
+// 	{
+// 		s_time = (int)((random() % MAX_SLEEP_TIME) + 1);
+// 		// s_time = 1;
+// 		thinking(s_time);
+// 		pickup_forks(num);
+// 		printf("Philosopher %d is eating\n", num);
+// 		s_time = (int)((random() % MAX_SLEEP_TIME) + 1);
+// 		eating(s_time);
+// 		printf("Philosopher %d is thinking\n", num);
+// 		return_forks(num);
+// 		++t_loop;
+// 	}
 // 	return NULL;
 // }
 
-// int		main(void)
+// void	create_philo()
 // {
-// 	int i = 0;
-// 	int err;
-// 	pthread_mutex_init(&lock, NULL);
-// 	while (i < 2) {
-// 		err = pthread_create(&tid[i], NULL, &try_this, NULL);
-// 		if (err)
-// 			printf("\nThread can't be created : [%s]", strerror(err));
-// 		i++;
-// 	}
+// 	int 	i;
 
-// 	pthread_join(tid[0], NULL);
-// 	pthread_join(tid[1], NULL);
-// 	pthread_mutex_destroy(&lock);
-// 	return 0;
+// 	for (i = 0;i < NUM; i++)
+// 		pthread_create(&tid[i], NULL, philosoper, (void *)&thread_id[i]);
 // }
 
+// int 	main()
+// {
+// 	int 	i;
+// 	init();
+// 	create_philo();
 
-
-
-typedef struct 	s_time
-{
-	struct timeval start;
-	struct timeval end;
-}				t_time;
-unsigned int get_time_of_excute(t_time *t)
-{
-	return ((t->end.tv_sec * 1000 + (t->end.tv_usec / 1000)) -
-	(t->start.tv_sec * 1000 + (t->start.tv_usec / 1000)));
-}
-
-void	yourTurn() {
-	int i = 0;
-	while (i < 5) {
-		usleep((int)pow(10, 6));
-		printf("you turn %d\n", i);
-		i++;
-	}
-}
-
-void	*myturn(void *arg) {
-	pthread_mutex_lock(&lock);
-	int i = 0;
-	while (i < 8) {
-		usleep((int)pow(10, 6));
-		printf("my turn %d\n", i);
-		i++;
-	}
-	pthread_mutex_unlock(&lock);
-	return (NULL);
-}
-
-void	*do_process(void *arg)
-{
-	pthread_mutex_lock(&lock);
-	int i = 0;
-	j++;
-	while (i < 5) {
-		printf("%d", j);
-		// for (unsigned int i = 0; i < 0xFFFFFFFF; i++)
-		// 	;
-		sleep(1);
-		i++;
-	}
-	printf("...Done\n");
-	pthread_mutex_unlock(&lock);
-	return NULL;
-}
-
-int		main(void) {
-	t_time	time;
-	pthread_mutex_init(&lock, NULL);
-	j = 0;
-	gettimeofday(&time.start, NULL);
-	for (int i =0; i < 2; i++)
-		pthread_create(&tid[i], NULL, do_process, NULL);
-	// yourTurn();
-	pthread_join(tid[0], NULL);
-	pthread_join(tid[1], NULL);
-	pthread_mutex_destroy(&lock);
-	gettimeofday(&time.end, NULL);
-	printf("%u ms\n", get_time_of_excute(&time));
-} 
+// 	for (i = 0; i < NUM; i++)
+// 		pthread_join(tid[i], NULL);
+// 	return 0;
+// }
