@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:14:36 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/20 18:03:10 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/20 21:02:02 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,8 +189,10 @@ void	init(int n_p, int t_d, int t_e, int t_s)
 	i = -1;
 	if (!(p_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * 5)))
 		return ;
+	pthread_mutex_init(g_lock_died, NULL);
 	while (++i < n_p)
 	{
+		g_philo[i].philo_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 		g_philo[i].num_of_philo = n_p;
 		g_philo[i].content.time_to_die = t_d;
 		g_philo[i].content.time_to_eat = t_e;
@@ -198,6 +200,7 @@ void	init(int n_p, int t_d, int t_e, int t_s)
 		g_philo[i].id = i;
 		g_philo[i].r_fork = i;
 		g_philo[i].l_fork = (i + 1) % n_p;
+		pthread_mutex_init(g_philo[i].philo_mutex, NULL);
 	}
 	i = -1;
 	while (++i < n_p)
@@ -208,7 +211,6 @@ void	*check_health(void *arg)
 {
 	t_thread *checker;
 	checker = arg;
-	printf("%ld\n", checker->t_limit);
 	while (1)
 	{
 		if (get_time() > checker->t_limit)
@@ -225,7 +227,8 @@ void	*ft_routine(void *arg)
 {
 	t_thread	*philo;
 	philo = arg;
-	pthread_create(&th_health, NULL, check_health, (void *)philo);
+	pthread_create(&th_health, NULL, check_health, arg);
+	// pthread_join(th_health, NULL);
 	pthread_detach(th_health);
 	philo->t_limit = get_time() + philo->content.time_to_die;
 	// pthread_mutex_init(&eat_lock, NULL);
@@ -236,11 +239,11 @@ void	*ft_routine(void *arg)
 		printf("%d has take r fork\n", philo->id + 1);
 		printf("%d has take l fork\n", philo->id + 1);
 		
-		pthread_mutex_lock(&eat_lock);
+		pthread_mutex_lock(philo->philo_mutex);
 		philo->t_limit = get_time() + philo->content.time_to_die;
 		printf("%d is eating\n", philo->id + 1);
 		usleep(1000 * philo->content.time_to_eat);
-		pthread_mutex_unlock(&eat_lock);
+		pthread_mutex_unlock(philo->philo_mutex);
 		
 		pthread_mutex_unlock(&p_lock[philo->r_fork]);
 		pthread_mutex_unlock(&p_lock[philo->l_fork]);
@@ -260,24 +263,25 @@ void 	create_philod()
 	while (++i < n_philo)
 	{
 		pthread_create(&g_philo[i].thread[i], NULL, ft_routine, (void *)&g_philo[i]);
-		pthread_detach(g_philo[i].thread[i]);
-		usleep(100000);
+		//pthread_detach(g_philo[i].thread[i]);
+		// usleep(100000);
 	}
-	// i = -1;
-	// while (++i < n_philo)
-	// 	pthread_join(g_philo[i].thread[i], NULL);
+	i = -1;
+	while (++i < n_philo)
+		pthread_join(g_philo[i].thread[i], NULL);
 	
 }
 
 int		main(int argc, char **argv)
 {
-	int n_p = ft_atoi(argv[1]);
-	int t_d = ft_atoi(argv[2]);
-	int t_e = ft_atoi(argv[3]);
-	int t_s = ft_atoi(argv[4]);
+	int n_p = atoi(argv[1]);
+	int t_d = atoi(argv[2]);
+	int t_e = atoi(argv[3]);
+	int t_s = atoi(argv[4]);
 	g_die = 1;
 	n_philo = n_p;
+	g_lock_died = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	init(n_p, t_d, t_e, t_s);
 	create_philod();
-	pthread_mutex_init(&eat_lock, NULL);
+	// pthread_mutex_init(&eat_lock, NULL);
 }

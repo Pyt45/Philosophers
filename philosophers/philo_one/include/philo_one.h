@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_one.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/20 18:00:33 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/20 20:58:28 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct			s_thread
 	int					l_fork;
 	int					r_fork;
 	long int 			t_limit;
+	pthread_mutex_t		*philo_mutex;
 	// struct	s_thread	*next;
 	// struct	s_thread	*prev;
 }						t_thread;
@@ -63,6 +64,7 @@ pthread_t				th_health;
 // pthread_mutex_t			g_lock;
 pthread_mutex_t			*p_lock;
 pthread_mutex_t			eat_lock;
+pthread_mutex_t			*g_lock_died;
 
 void					*philo_life(void *arg);
 int						is_sleep(int action);
