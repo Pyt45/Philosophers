@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/21 12:10:13 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/21 15:52:57 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int						*g_forks;
 int						g_die;
 int						g_action;
 int						n_philo;
+long int 				g_start;
 t_thread 				g_philo[50];
 pthread_t				th_health;
 // pthread_mutex_t			*g_LeftLock;
@@ -79,7 +80,7 @@ int						is_do_action(int action);
 void					create_philo(t_thread *l_thread);
 int						ft_atoi(const char *str);
 int						is_valid(char **argv, int argc);
-int						check_data(char **argv, int argc);
-void					init(int n_p, int t_d, int t_e, int t_s);
-int						ft_HandleData(char **argv, int argc);
+t_thread				*check_data(t_thread *philo, char **argv, int argc);
+t_thread				*init(t_thread *philo, int n_p, int t_d, int t_e, int t_s);
+t_thread				*ft_HandleData(t_thread *philo, char **argv, int argc);
 #endif

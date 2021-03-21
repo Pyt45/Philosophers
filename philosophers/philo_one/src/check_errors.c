@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 10:57:13 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/21 12:00:57 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/21 15:54:02 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int			is_valid(char **argv, int argc)
 	return (1);
 }
 
-int			check_data(char **argv, int argc)
+t_thread	*check_data(t_thread *philo, char **argv, int argc)
 {
 	int n_p;
 	int	t_d;
@@ -66,7 +66,7 @@ int			check_data(char **argv, int argc)
 	n_e = (argc == 6) ? atoi(argv[5]) : 0;
 	if (n_p < 2 || t_d < 60 || t_e < 60
 	|| t_s < 60)
-		return (0);
-	init(n_p, t_d, t_e, t_s);
-	return (1);
+		return (NULL);
+	philo = init(philo, n_p, t_d, t_e, t_s);
+	return (philo);
 }
