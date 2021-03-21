@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_one.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/20 20:58:28 by ayoub            ###   ########.fr       */
+/*   Updated: 2021/03/21 12:10:13 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 # define				EAT_ACTION 2
 # define				DIE_ACTION 3
 # define				THINK_ACTION 4
+# define				TAKE_FORK " has taken a fork"
+# define				EAT	" is eating"
+# define				SLEEP " is sleeping"
+# define				THINK " is thinking"
 
 typedef struct			s_content
 {
@@ -42,7 +46,7 @@ typedef struct			s_thread
 	int					num_of_philo;
 	struct timeval		start;
 	struct timeval		end;
-	pthread_t			thread[5];
+	pthread_t			thread[50];
 	int					id;
 	int					l_fork;
 	int					r_fork;
@@ -56,7 +60,7 @@ int						*g_forks;
 int						g_die;
 int						g_action;
 int						n_philo;
-t_thread 				g_philo[5];
+t_thread 				g_philo[50];
 pthread_t				th_health;
 // pthread_mutex_t			*g_LeftLock;
 // pthread_mutex_t			*g_RightLock;
@@ -74,5 +78,8 @@ int						is_thinking(int action);
 int						is_do_action(int action);
 void					create_philo(t_thread *l_thread);
 int						ft_atoi(const char *str);
-
+int						is_valid(char **argv, int argc);
+int						check_data(char **argv, int argc);
+void					init(int n_p, int t_d, int t_e, int t_s);
+int						ft_HandleData(char **argv, int argc);
 #endif

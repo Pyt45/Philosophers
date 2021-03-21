@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:14:36 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/20 21:02:02 by ayoub            ###   ########.fr       */
+/*   Updated: 2021/03/21 12:24:30 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,9 @@ void	init(int n_p, int t_d, int t_e, int t_s)
 	int 	i;
 
 	i = -1;
+	g_die = 1;
+	n_philo = n_p;
+	g_lock_died = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if (!(p_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * 5)))
 		return ;
 	pthread_mutex_init(g_lock_died, NULL);
@@ -211,15 +214,18 @@ void	*check_health(void *arg)
 {
 	t_thread *checker;
 	checker = arg;
-	while (1)
+	while (g_die)
 	{
 		if (get_time() > checker->t_limit)
 		{
 			g_die = 0;
+			pthread_mutex_lock(g_lock_died);
 			printf("%d is died\n", checker->id + 1);
+			pthread_mutex_unlock(g_lock_died);
 			break ;
 		}
 	}
+	// pthread_mutex_unlock(g_lock_died);
 	return NULL;
 }
 
@@ -228,15 +234,15 @@ void	*ft_routine(void *arg)
 	t_thread	*philo;
 	philo = arg;
 	pthread_create(&th_health, NULL, check_health, arg);
-	// pthread_join(th_health, NULL);
-	pthread_detach(th_health);
+	pthread_join(th_health, NULL);
+	// pthread_detach(th_health);
 	philo->t_limit = get_time() + philo->content.time_to_die;
 	// pthread_mutex_init(&eat_lock, NULL);
-	while (g_die)
+	while (1)
 	{
 		pthread_mutex_lock(&p_lock[philo->r_fork]);
 		pthread_mutex_lock(&p_lock[philo->l_fork]);
-		printf("%d has take r fork\n", philo->id + 1);
+		printf("%ld\t%d has take r fork\n", get_time(), philo->id + 1);
 		printf("%d has take l fork\n", philo->id + 1);
 		
 		pthread_mutex_lock(philo->philo_mutex);
@@ -248,9 +254,15 @@ void	*ft_routine(void *arg)
 		pthread_mutex_unlock(&p_lock[philo->r_fork]);
 		pthread_mutex_unlock(&p_lock[philo->l_fork]);
 
+		pthread_mutex_lock(philo->philo_mutex);
 		printf("%d is sleeping\n", philo->id + 1);
 		usleep(1000 * philo->content.time_to_sleep);
+		pthread_mutex_unlock(philo->philo_mutex);
+		pthread_mutex_lock(philo->philo_mutex);
 		printf("%d is thinking\n", philo->id + 1);
+		pthread_mutex_unlock(philo->philo_mutex);
+		if (!g_die)
+			break ;
 	}
 	return NULL;
 }
@@ -263,7 +275,7 @@ void 	create_philod()
 	while (++i < n_philo)
 	{
 		pthread_create(&g_philo[i].thread[i], NULL, ft_routine, (void *)&g_philo[i]);
-		//pthread_detach(g_philo[i].thread[i]);
+		// pthread_detach(g_philo[i].thread[i]);
 		// usleep(100000);
 	}
 	i = -1;
@@ -272,16 +284,34 @@ void 	create_philod()
 	
 }
 
+int		ft_HandleData(char **argv, int argc)
+{
+	if (argc < 5 || argc > 6)
+	{
+		printf("\033[1;31mError wrong number of argumenst\033[0m\n");
+		return (-1);
+	}
+	else if (!is_valid(argv, argc))
+	{
+		printf("\033[1;31mError data must be valid\033[0m\n");
+		return (-1);
+	}
+	else if (!check_data(argv, argc))
+	{
+		printf("\033[1;31mError out of range\033[0m\n");
+		return (-1);
+	}
+	return (0);
+}
+
 int		main(int argc, char **argv)
 {
-	int n_p = atoi(argv[1]);
-	int t_d = atoi(argv[2]);
-	int t_e = atoi(argv[3]);
-	int t_s = atoi(argv[4]);
-	g_die = 1;
-	n_philo = n_p;
-	g_lock_died = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	init(n_p, t_d, t_e, t_s);
+	if (ft_HandleData(argv, argc))
+		return (-1);
+	// g_die = 1;
+	// n_philo = n_p;
+	// g_lock_died = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	// init(n_p, t_d, t_e, t_s);
 	create_philod();
 	// pthread_mutex_init(&eat_lock, NULL);
 }
