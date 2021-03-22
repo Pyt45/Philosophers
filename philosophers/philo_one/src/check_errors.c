@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 10:57:13 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/21 15:54:02 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/22 17:36:59 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ int			is_valid(char **argv, int argc)
 		return (0);
 	i = -1;
 	while (++i < argc - 1)
-		tmp[i] = strdup(argv[i + 1]);
+		tmp[i] = ft_strdup(argv[i + 1]);
 	tmp[i] = NULL;
 	j = -1;
 	while (++j < argc - 1)
 	{
 		i = -1;
-		while (++i < strlen(tmp[j]))
+		while (++i < (int)ft_strlen(tmp[j]))
 		{
 			if (tmp[j][i] < '0' || tmp[j][i] > '9')
 				return (0);

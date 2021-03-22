@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/21 15:52:57 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/22 17:36:53 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,12 @@ typedef struct			s_thread
 	int					num_of_philo;
 	struct timeval		start;
 	struct timeval		end;
-	pthread_t			thread[50];
+	pthread_t			thread;
 	int					id;
 	int					l_fork;
 	int					r_fork;
 	long int 			t_limit;
+	pthread_mutex_t		*msg_mutex;
 	pthread_mutex_t		*philo_mutex;
 	// struct	s_thread	*next;
 	// struct	s_thread	*prev;
@@ -61,7 +62,7 @@ int						g_die;
 int						g_action;
 int						n_philo;
 long int 				g_start;
-t_thread 				g_philo[50];
+// t_thread 				g_philo[50];
 pthread_t				th_health;
 // pthread_mutex_t			*g_LeftLock;
 // pthread_mutex_t			*g_RightLock;
@@ -79,6 +80,8 @@ int						is_thinking(int action);
 int						is_do_action(int action);
 void					create_philo(t_thread *l_thread);
 int						ft_atoi(const char *str);
+size_t					ft_strlen(const char *str);
+char					*ft_strdup(const char *str);
 int						is_valid(char **argv, int argc);
 t_thread				*check_data(t_thread *philo, char **argv, int argc);
 t_thread				*init(t_thread *philo, int n_p, int t_d, int t_e, int t_s);

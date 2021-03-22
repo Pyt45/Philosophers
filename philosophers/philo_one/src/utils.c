@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 12:16:02 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/18 12:17:09 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/22 17:36:42 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,32 @@ int				ft_atoi(const char *str)
 	}
 	rst = rst * sign;
 	return (ft_max(rst, sign));
+}
+
+size_t		ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = -1;
+	while (str[++i])
+		;
+	return (i);
+}
+
+char		*ft_strdup(const char *str)
+{
+	char	*ptr;
+	char	*rptr;
+	int		len;
+
+	if (!str)
+		return (NULL);
+	len = ft_strlen(str) + 1;
+	if (!(ptr = (char *)malloc(sizeof(char) * len)))
+		return (NULL);
+	rptr = ptr;
+	while (*str)
+		*ptr++ = *str++;
+	*ptr = '\0';
+	return (rptr);
 }

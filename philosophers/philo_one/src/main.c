@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:14:36 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/21 15:55:55 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/22 17:26:22 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,15 +189,16 @@ t_thread	*init(t_thread *philo, int n_p, int t_d, int t_e, int t_s)
 	i = -1;
 	g_die = 1;
 	n_philo = n_p;
-	g_lock_died = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	if (!(p_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * 5)))
+	// g_lock_died = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	if (!(p_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * n_philo)))
 		return (NULL);
-	pthread_mutex_init(g_lock_died, NULL);
+	// pthread_mutex_init(g_lock_died, NULL);
 	g_start = get_time();
 	if (!(philo = (t_thread *)malloc(sizeof(t_thread) * n_p)))
 		return (NULL);
 	while (++i < n_p)
 	{
+		philo[i].msg_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 		philo[i].philo_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 		philo[i].num_of_philo = n_p;
 		philo[i].content.time_to_die = t_d;
@@ -206,11 +207,12 @@ t_thread	*init(t_thread *philo, int n_p, int t_d, int t_e, int t_s)
 		philo[i].id = i;
 		philo[i].r_fork = i;
 		philo[i].l_fork = (i + 1) % n_p;
+		pthread_mutex_init(philo[i].msg_mutex, NULL);
 		pthread_mutex_init(philo[i].philo_mutex, NULL);
-	}
-	i = -1;
-	while (++i < n_p)
 		pthread_mutex_init(&p_lock[i], NULL);
+	}
+	// i = -1;
+	// while (++i < n_p)
 	return (philo);
 }
 
@@ -221,12 +223,13 @@ void	*check_health(void *arg)
 	pthread_mutex_lock(g_lock_died);
 	while (1)
 	{
-		pthread_mutex_lock(g_lock_died);
 		if (get_time() > checker->t_limit)
 		{
 			g_die = 0;
+			pthread_mutex_lock(checker->msg_mutex);
 			printf("%d is died\n", checker->id + 1);
-			pthread_mutex_unlock(g_lock_died);
+			pthread_mutex_lock(checker->msg_mutex);
+			// pthread_mutex_unlock(g_lock_died);
 			break ;
 		}
 	}
@@ -242,7 +245,8 @@ void	*ft_routine(void *arg)
 	// pthread_join(th_health, NULL);
 	// pthread_detach(th_health);
 	philo->t_limit = get_time() + philo->content.time_to_die;
-	// pthread_mutex_init(&eat_lock, NULL);
+	// pthread_mutex_init(g_lock_died, NULL);
+	pthread_mutex_lock(philo->philo_mutex);
 	while (1)
 	{
 		pthread_mutex_lock(&p_lock[philo->r_fork]);
@@ -250,25 +254,26 @@ void	*ft_routine(void *arg)
 		printf("%ld %d has take r fork\n", get_time() - g_start, philo->id + 1);
 		printf("%ld %d has take l fork\n", get_time() - g_start, philo->id + 1);
 		
-		pthread_mutex_lock(philo->philo_mutex);
-		philo->t_limit = get_time() + philo->content.time_to_die;
+		pthread_mutex_lock(philo->msg_mutex);
 		printf("%ld %d is eating\n", get_time() - g_start, philo->id + 1);
 		usleep(1000 * philo->content.time_to_eat);
-		pthread_mutex_unlock(philo->philo_mutex);
+		philo->t_limit = get_time() + philo->content.time_to_die;
+		pthread_mutex_unlock(philo->msg_mutex);
 		
 		pthread_mutex_unlock(&p_lock[philo->r_fork]);
 		pthread_mutex_unlock(&p_lock[philo->l_fork]);
 
-		pthread_mutex_lock(philo->philo_mutex);
+		pthread_mutex_lock(philo->msg_mutex);
 		printf("%ld %d is sleeping\n", get_time() - g_start, philo->id + 1);
 		usleep(1000 * philo->content.time_to_sleep);
-		pthread_mutex_unlock(philo->philo_mutex);
-		pthread_mutex_lock(philo->philo_mutex);
+		pthread_mutex_unlock(philo->msg_mutex);
+		pthread_mutex_lock(philo->msg_mutex);
 		printf("%ld %d is thinking\n", get_time() - g_start, philo->id + 1);
-		pthread_mutex_unlock(philo->philo_mutex);
+		pthread_mutex_unlock(philo->msg_mutex);
 		if (!g_die)
 			break ;
 	}
+	pthread_mutex_unlock(philo->philo_mutex);
 	return NULL;
 }
 
@@ -279,14 +284,14 @@ void 	create_philod(t_thread *philo)
 	i = -1;
 	while (++i < n_philo)
 	{
-		pthread_create(&philo[i].thread[i], NULL, ft_routine, (void *)&philo[i]);
-		// pthread_detach(g_philo[i].thread[i]);
-		// usleep(100000);
+		pthread_create(&philo[i].thread, NULL, ft_routine, (void *)&philo[i]);
+		pthread_detach(philo[i].thread);
+		usleep(100);
 	}
+	// pthread_mutex_lock(g_lock_died);
 	i = -1;
 	while (++i < n_philo)
-		pthread_join(philo[i].thread[i], NULL);
-	
+		pthread_mutex_lock(philo[i].philo_mutex);
 }
 
 t_thread	*ft_HandleData(t_thread *philo, char **argv, int argc)
@@ -318,8 +323,8 @@ int		main(int argc, char **argv)
 		return (-1);
 	// g_die = 1;
 	// n_philo = n_p;
-	g_lock_died = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	// g_lock_died = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	// init(n_p, t_d, t_e, t_s);
 	create_philod(philo);
-	// pthread_mutex_init(&eat_lock, NULL);
+	// pthread_mutex_init(g_lock_died, NULL);
 }
