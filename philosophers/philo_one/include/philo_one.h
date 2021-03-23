@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/22 17:36:53 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/23 17:53:53 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,23 @@ typedef struct			s_content
 	int					time_to_die;
 	int					time_to_eat;
 	int					time_to_sleep;
-	int					num_of_eat;	
+	int					num_of_eat;
+	int 				n_philo;
+	long 				start;
+	long 				s_start;
+	pthread_mutex_t		*msg_mutex;
+	pthread_mutex_t		*die_mutex;
+	pthread_mutex_t		*fork_mutex;
+	pthread_t 			philo_health;
 }						t_content;
 
-typedef struct			s_thread
+typedef struct			s_philo
 {
 	t_content			content;
 	int					num_of_philo;
 	struct timeval		start;
 	struct timeval		end;
+	long int 			s_start;
 	pthread_t			thread;
 	int					id;
 	int					l_fork;
@@ -53,37 +61,18 @@ typedef struct			s_thread
 	long int 			t_limit;
 	pthread_mutex_t		*msg_mutex;
 	pthread_mutex_t		*philo_mutex;
-	// struct	s_thread	*next;
-	// struct	s_thread	*prev;
-}						t_thread;
+	int 				is_eating;
+}						t_philo;
 
-int						*g_forks;
-int						g_die;
-int						g_action;
-int						n_philo;
-long int 				g_start;
-// t_thread 				g_philo[50];
-pthread_t				th_health;
-// pthread_mutex_t			*g_LeftLock;
-// pthread_mutex_t			*g_RightLock;
-// pthread_mutex_t			*g_PrintLock;
-// pthread_mutex_t			g_lock;
-pthread_mutex_t			*p_lock;
-pthread_mutex_t			eat_lock;
-pthread_mutex_t			*g_lock_died;
 
 void					*philo_life(void *arg);
-int						is_sleep(int action);
-int						is_eat(int action);
-int						is_die(int action);
-int						is_thinking(int action);
-int						is_do_action(int action);
-void					create_philo(t_thread *l_thread);
+void					create_philo(t_philo *philo);
 int						ft_atoi(const char *str);
 size_t					ft_strlen(const char *str);
 char					*ft_strdup(const char *str);
 int						is_valid(char **argv, int argc);
-t_thread				*check_data(t_thread *philo, char **argv, int argc);
-t_thread				*init(t_thread *philo, int n_p, int t_d, int t_e, int t_s);
-t_thread				*ft_HandleData(t_thread *philo, char **argv, int argc);
+t_philo					*check_data(t_philo *philo, char **argv, int argc);
+t_philo					*init(t_philo *philo, t_content cont);
+t_philo					*ft_HandleData(t_philo *philo, char **argv, int argc);
+long					get_time();
 #endif

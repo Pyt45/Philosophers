@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 10:57:13 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/22 17:36:59 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/23 17:57:16 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ int			is_valid(char **argv, int argc)
 	return (1);
 }
 
-t_thread	*check_data(t_thread *philo, char **argv, int argc)
+t_philo	*check_data(t_philo *philo, char **argv, int argc)
 {
+	t_content	content;
 	int n_p;
 	int	t_d;
 	int	t_e;
@@ -64,9 +65,14 @@ t_thread	*check_data(t_thread *philo, char **argv, int argc)
 	t_e = atoi(argv[3]);
 	t_s = atoi(argv[4]);
 	n_e = (argc == 6) ? atoi(argv[5]) : 0;
+	content.n_philo = ft_atoi(argv[1]);
+	content.time_to_die = ft_atoi(argv[2]);
+	content.time_to_eat = ft_atoi(argv[3]);
+	content.time_to_sleep = ft_atoi(argv[4]);
+	content.num_of_eat = (argc == 6) ? ft_atoi(argv[5]) : 0;
 	if (n_p < 2 || t_d < 60 || t_e < 60
 	|| t_s < 60)
 		return (NULL);
-	philo = init(philo, n_p, t_d, t_e, t_s);
+	philo = init(philo, content);
 	return (philo);
 }

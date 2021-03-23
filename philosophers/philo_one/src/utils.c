@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 12:16:02 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/22 17:36:42 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/23 17:31:49 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,11 @@ char		*ft_strdup(const char *str)
 		*ptr++ = *str++;
 	*ptr = '\0';
 	return (rptr);
+}
+
+long	get_time()
+{
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + tv.tv_usec / 1000);
 }

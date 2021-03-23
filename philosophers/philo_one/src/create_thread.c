@@ -6,16 +6,16 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:52:51 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/22 17:27:35 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/23 17:32:33 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_one.h"
 
-unsigned int get_time_of_excute(t_thread *l_thread)
+unsigned int get_time_of_excute(t_philo *philo)
 {
-	return ((l_thread->end.tv_sec * 1000 + (l_thread->end.tv_usec / 1000)) -
-	(l_thread->start.tv_sec * 1000 + (l_thread->start.tv_usec / 1000)));
+	return ((philo->end.tv_sec * 1000 + (philo->end.tv_usec / 1000)) -
+	(philo->start.tv_sec * 1000 + (philo->start.tv_usec / 1000)));
 }
 
 // void	*try_this(void *arg)
