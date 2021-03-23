@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:14:36 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/23 13:02:45 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/23 13:04:34 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,10 +241,10 @@ void	*ft_routine(void *arg)
 {
 	t_thread	*philo;
 	philo = arg;
-	philo->t_limit = get_time() + philo->content.time_to_die;
-	pthread_create(&th_health, NULL, check_health, arg);
-	pthread_detach(th_health);
-	pthread_mutex_lock(g_lock_died);
+	// philo->t_limit = get_time() + philo->content.time_to_die;
+	// pthread_create(&th_health, NULL, check_health, arg);
+	// pthread_detach(th_health);
+	// pthread_mutex_lock(g_lock_died);
 	pthread_mutex_lock(philo->philo_mutex);
 	while (g_die)
 	{
@@ -256,7 +256,7 @@ void	*ft_routine(void *arg)
 		pthread_mutex_lock(philo->msg_mutex);
 		printf("%ld %d is eating\n", get_time() - g_start, philo->id + 1);
 		usleep(1000 * philo->content.time_to_eat);
-		philo->t_limit = get_time() + philo->content.time_to_die;
+		// philo->t_limit = get_time() + philo->content.time_to_die;
 		pthread_mutex_unlock(philo->msg_mutex);
 		
 		pthread_mutex_unlock(&p_lock[philo->r_fork]);
