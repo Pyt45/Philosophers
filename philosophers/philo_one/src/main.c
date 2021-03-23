@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:14:36 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/23 17:57:33 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/23 17:58:04 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ t_philo	*init(t_philo *philo, t_content cont)
 
 	i = -1;
 	content = cont;
+	// printf("e_of_t = %d\n", cont.num_of_eat);
 	content.start = get_time();
 	if (!(content.msg_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t))))
 		return (NULL);
