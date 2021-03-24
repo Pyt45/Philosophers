@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:14:36 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/23 17:58:04 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/24 12:10:07 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,8 @@ void	*check_health(void *arg)
 			return (NULL);
 		if (!checker->is_eating && get_time() > checker->t_limit)
 		{
+			// if (checker->content.r_eat == 1)
+			// 	checker->content.r_eat = 0;
 			if (pthread_mutex_lock(checker->content.msg_mutex))
 				return (NULL);
 			printf("%ld\t%d is died\n",get_time() - checker->content.s_start, checker->id + 1);
@@ -280,6 +282,10 @@ void	*ft_routine(void *arg)
 		pthread_mutex_unlock(philo->content.msg_mutex);
 		usleep(1000 * philo->content.time_to_eat);
 		philo->is_eating = 0;
+		// if (philo->content.num_of_eat)
+		// philo->content.num_of_eat--;
+		// if (!philo->content.num_of_eat)
+		// 	philo->content.r_eat = 1;
 		pthread_mutex_unlock(philo->philo_mutex);
 		pthread_mutex_unlock(&philo->content.fork_mutex[philo->r_fork]);
 		pthread_mutex_unlock(&philo->content.fork_mutex[philo->l_fork]);

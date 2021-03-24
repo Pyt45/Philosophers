@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/23 17:53:53 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/03/24 12:02:04 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct			s_content
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					num_of_eat;
+	int 				r_eat;
 	int 				n_philo;
 	long 				start;
 	long 				s_start;
