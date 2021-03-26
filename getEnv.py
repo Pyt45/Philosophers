@@ -91,6 +91,7 @@ def replace(filename, s1, s2):
 		while line != '':
 			l.append(line)
 			line = f.readline()
+	f.close()
 	s = list_to_str(l)
 	r = [m.start() for m in re.finditer(s1, s)]
 	if r:
@@ -98,9 +99,10 @@ def replace(filename, s1, s2):
 			o_s = s.replace(s[int(i)], s2)
 	with open(o_file, 'w') as o:
 		o.write(o_s)
+	o.close()
 
 
 filepath = os.path.abspath('file')
 
 if __name__ == "__main__":
-	replace(filepath, 'r', '😃')
+	replace(filepath, 'p', '😃')
