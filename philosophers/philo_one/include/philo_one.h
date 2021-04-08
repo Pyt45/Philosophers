@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/24 12:02:04 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/08 17:47:34 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct			s_content
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					num_of_eat;
+	int 				e_eat;
 	int 				r_eat;
 	int 				n_philo;
 	long 				start;
@@ -45,6 +46,8 @@ typedef struct			s_content
 	pthread_mutex_t		*msg_mutex;
 	pthread_mutex_t		*die_mutex;
 	pthread_mutex_t		*fork_mutex;
+	pthread_mutex_t 	*eat_mutex;
+	pthread_t 			eat_thread;
 	pthread_t 			philo_health;
 }						t_content;
 

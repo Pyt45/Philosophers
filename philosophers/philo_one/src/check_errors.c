@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 10:57:13 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/24 12:04:13 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/08 17:48:04 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ t_philo	*check_data(t_philo *philo, char **argv, int argc)
 	content.time_to_eat = ft_atoi(argv[3]);
 	content.time_to_sleep = ft_atoi(argv[4]);
 	content.num_of_eat = (argc == 6) ? ft_atoi(argv[5]) : 0;
+	if (content.num_of_eat)
+		content.e_eat = content.num_of_eat;
 	if (n_p < 2 || t_d < 60 || t_e < 60
 	|| t_s < 60)
 		return (NULL);
