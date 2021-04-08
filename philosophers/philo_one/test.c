@@ -132,19 +132,19 @@ pthread_mutex_t *p_lock;
 void	*routine(void *arg)
 {
 	int 	i = 0;
-	pthread_mutex_lock(g_lock);
+	// pthread_mutex_lock(g_lock);
 	while (i < 5)
 	{
-		// pthread_mutex_lock(p_lock);
+		pthread_mutex_lock(g_lock);
 		printf("%d Start\n", i);
 		sleep(1);
 		// pthread_mutex_unlock(p_lock);
 		// pthread_mutex_lock(p_lock);
 		printf("%d End\n", i);
 		// pthread_mutex_unlock(p_lock);
+		pthread_mutex_unlock(g_lock);
 		i++;
 	}
-	pthread_mutex_unlock(g_lock);
 	return (NULL);
 }
 
@@ -154,8 +154,12 @@ int 	main()
 	// p_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(g_lock, NULL);
 	// pthread_mutex_init(p_lock, NULL);
+	// pthread_mutex_lock(g_lock);
 
 	pthread_create(&g_thread, NULL, routine, NULL);
 	pthread_detach(g_thread);
+	usleep(100);
+
 	pthread_mutex_lock(g_lock);
+	// pthread_mutex_unlock(g_lock);
 }

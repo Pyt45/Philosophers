@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_one.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/08 17:47:34 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/08 23:20:04 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct			s_content
 	int 				e_eat;
 	int 				r_eat;
 	int 				n_philo;
+	int 				reached_count;
 	long 				start;
 	long 				s_start;
 	pthread_mutex_t		*msg_mutex;
