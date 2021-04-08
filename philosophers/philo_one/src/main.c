@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:14:36 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/08 17:55:15 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/08 17:57:31 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,10 @@ void	*check_health(void *arg)
 	}
 	return NULL;
 }
+
+// void _do(){
+	
+// }
 
 // void	*check_each_times(void *arg)
 // {
