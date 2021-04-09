@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_one.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/08 23:20:04 by ayoub            ###   ########.fr       */
+/*   Updated: 2021/04/09 17:10:34 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ typedef struct			s_content
 	int					num_of_eat;
 	int 				e_eat;
 	int 				r_eat;
+	int 				must_eat;
 	int 				n_philo;
 	int 				reached_count;
+	int 				*e_arr;
 	long 				start;
 	long 				s_start;
 	pthread_mutex_t		*msg_mutex;
@@ -61,6 +63,7 @@ typedef struct			s_philo
 	long int 			s_start;
 	pthread_t			thread;
 	int					id;
+	int 				index_p;
 	int					l_fork;
 	int					r_fork;
 	long int 			t_limit;
@@ -68,8 +71,7 @@ typedef struct			s_philo
 	pthread_mutex_t		*philo_mutex;
 	int 				is_eating;
 }						t_philo;
-
-
+int 	g_must_eat;
 void					*philo_life(void *arg);
 void					create_philo(t_philo *philo);
 int						ft_atoi(const char *str);

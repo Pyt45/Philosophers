@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 10:57:13 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/08 23:20:29 by ayoub            ###   ########.fr       */
+/*   Updated: 2021/04/09 17:10:44 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ t_philo	*check_data(t_philo *philo, char **argv, int argc)
 	t_e = atoi(argv[3]);
 	t_s = atoi(argv[4]);
 	n_e = (argc == 6) ? atoi(argv[5]) : 0;
-	content.r_eat = -1;
+	content.r_eat = 0;
+	content.e_eat = 0;
 	content.n_philo = ft_atoi(argv[1]);
 	content.time_to_die = ft_atoi(argv[2]);
 	content.time_to_eat = ft_atoi(argv[3]);
@@ -74,6 +75,8 @@ t_philo	*check_data(t_philo *philo, char **argv, int argc)
 	if (content.num_of_eat)
 		content.e_eat = content.num_of_eat;
 	content.reached_count = 0;
+	g_must_eat = 0;
+	content.must_eat = 0;
 	if (n_p < 2 || t_d < 60 || t_e < 60
 	|| t_s < 60)
 		return (NULL);

@@ -159,7 +159,8 @@ int 	main()
 	pthread_create(&g_thread, NULL, routine, NULL);
 	pthread_detach(g_thread);
 	usleep(100);
-
 	pthread_mutex_lock(g_lock);
+
+	printf("hi\n");
 	// pthread_mutex_unlock(g_lock);
 }

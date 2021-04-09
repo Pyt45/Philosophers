@@ -1,0 +1,212 @@
+0	1 has taken a fork
+0	1 has taken a fork
+0	1 is eating
+g = 0
+1	3 has taken a fork
+1	3 has taken a fork
+1	3 is eating
+g = 0
+1	5 has taken a fork
+201	1 is sleeping
+201	5 has taken a fork
+201	5 is eating
+g = 0
+201	2 has taken a fork
+201	2 has taken a fork
+201	2 is eating
+g = 0
+201	3 is sleeping
+201	4 has taken a fork
+402	1 is thinking
+402	5 is sleeping
+402	2 is sleeping
+402	3 is thinking
+402	3 has taken a fork
+402	4 has taken a fork
+402	4 is eating
+g = 0
+402	1 has taken a fork
+402	1 has taken a fork
+402	1 is eating
+g = 0
+604	5 is thinking
+604	2 is thinking
+604	4 is sleeping
+604	1 is sleeping
+604	3 has taken a fork
+605	3 is eating
+g = 0
+605	2 has taken a fork
+605	5 has taken a fork
+605	5 has taken a fork
+605	5 is eating
+g = 0
+808	4 is thinking
+808	1 is thinking
+808	5 is sleeping
+808	2 has taken a fork
+808	2 is eating
+g = 0
+808	4 has taken a fork
+808	4 has taken a fork
+808	4 is eating
+g = 0
+808	3 is sleeping
+808	1 has taken a fork
+1009	5 is thinking
+1009	2 is sleeping
+1009	3 is thinking
+1009	4 is sleeping
+1009	3 has taken a fork
+1009	3 has taken a fork
+1009	3 is eating
+g = 0
+1009	5 has taken a fork
+1009	1 has taken a fork
+1009	1 is eating
+g = 0
+1211	2 is thinking
+1211	3 is sleeping
+1211	4 is thinking
+1211	4 has taken a fork
+1211	5 has taken a fork
+1211	5 is eating
+g = 0
+1211	1 is sleeping
+1211	2 has taken a fork
+1211	2 has taken a fork
+1211	2 is eating
+g = 0
+1412	3 is thinking
+1412	5 is sleeping
+1412	1 is thinking
+1412	3 has taken a fork
+1412	2 is sleeping
+1412	4 has taken a fork
+1412	4 is eating
+g = 0
+1412	1 has taken a fork
+1412	1 has taken a fork
+1412	1 is eating
+g = 0
+1617	5 is thinking
+1617	4 is sleeping
+1617	2 is thinking
+1617	5 has taken a fork
+1617	2 has taken a fork
+1617	5 has taken a fork
+1617	5 is eating
+g = 0
+1617	1 is sleeping
+1617	3 has taken a fork
+1617	3 is eating
+g = 0
+1818	4 is thinking
+1818	5 is sleeping
+1818	1 is thinking
+1818	1 has taken a fork
+1818	3 is sleeping
+1818	4 has taken a fork
+1818	4 has taken a fork
+1818	4 is eating
+g = 0
+1818	2 has taken a fork
+1818	2 is eating
+g = 0
+2019	5 is thinking
+2019	4 is sleeping
+2019	5 has taken a fork
+2019	2 is sleeping
+2019	3 is thinking
+2019	3 has taken a fork
+2019	3 has taken a fork
+2019	3 is eating
+g = 0
+2019	1 has taken a fork
+2019	1 is eating
+g = 0
+2220	2 is thinking
+2220	4 is thinking
+2220	4 has taken a fork
+2220	1 is sleeping
+2220	5 has taken a fork
+2220	5 is eating
+g = 0
+2220	2 has taken a fork
+2220	2 has taken a fork
+2220	2 is eating
+g = 0
+2220	3 is sleeping
+2422	1 is thinking
+2422	5 is sleeping
+2422	2 is sleeping
+2422	1 has taken a fork
+2422	1 has taken a fork
+2422	1 is eating
+g = 0
+2422	4 has taken a fork
+2422	4 is eating
+g = 0
+2422	3 is thinking
+2422	3 has taken a fork
+2622	5 is thinking
+2622	2 is thinking
+2622	1 is sleeping
+2622	3 has taken a fork
+2622	3 is eating
+g = 0
+2622	5 has taken a fork
+2622	5 has taken a fork
+2622	4 is sleeping
+2622	5 is eating
+g = 0
+2622	2 has taken a fork
+2827	1 is thinking
+2827	4 is thinking
+2827	5 is sleeping
+2827	2 has taken a fork
+2827	4 has taken a fork
+2827	4 has taken a fork
+2827	4 is eating
+g = 0
+2827	1 has taken a fork
+2827	2 is eating
+g = 0
+2827	3 is sleeping
+3028	5 is thinking
+3028	4 is sleeping
+3028	3 is thinking
+3028	2 is sleeping
+3028	1 has taken a fork
+3028	1 is eating
+g = 1
+3028	3 has taken a fork
+3028	3 has taken a fork
+3028	3 is eating
+g = 2
+3028	5 has taken a fork
+3233	4 is thinking
+3233	5 has taken a fork
+3233	5 is eating
+g = 3
+3233	1 is sleeping
+3233	2 is thinking
+3233	2 has taken a fork
+3233	2 has taken a fork
+3233	2 is eating
+g = 4
+3233	4 has taken a fork
+3233	3 is sleeping
+3437	5 is sleeping
+3437	1 is thinking
+3437	1 has taken a fork
+3437	2 is sleeping
+3437	3 is thinking
+3437	3 has taken a fork
+3437	1 has taken a fork
+3437	1 is eating
+g = 4
+3437	4 has taken a fork
+3437	4 is eating
+g = 5
+0	reached the limit of eats
