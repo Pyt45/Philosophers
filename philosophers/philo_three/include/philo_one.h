@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/10 20:03:58 by ayoub            ###   ########.fr       */
+/*   Updated: 2021/04/10 21:09:14 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,6 @@ typedef struct			s_content
 	sem_t				*die_sem;
 	sem_t				*fork_sem;
 	sem_t 				*eat_sem;
-	// Mutex
-	/*pthread_mutex_t		*msg_mutex;
-	pthread_mutex_t		*die_mutex;
-	pthread_mutex_t		*fork_mutex;
-	pthread_mutex_t 	*eat_mutex;*/
 	pthread_t 			eat_thread;
 	pthread_t 			philo_health;
 }						t_content;
@@ -73,12 +68,7 @@ typedef struct			s_philo
 	long int 			s_start;
 	pthread_t			thread;
 	int					id;
-	int 				index_p;
-	int					l_fork;
-	int					r_fork;
 	long int 			t_limit;
-	// pthread_mutex_t		*msg_mutex;
-	// pthread_mutex_t		*philo_mutex;
 	sem_t 				*philo_sem;
 	int 				is_eating;
 }						t_philo;
