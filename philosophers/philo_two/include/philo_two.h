@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_one.h                                        :+:      :+:    :+:   */
+/*   philo_two.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/10 20:03:58 by ayoub            ###   ########.fr       */
+/*   Updated: 2021/04/11 11:01:13 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef PHILO_ONE
-# define PHILO_ONE
+#ifndef PHILO_TWO
+# define PHILO_TWO
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -57,11 +57,6 @@ typedef struct			s_content
 	sem_t				*die_sem;
 	sem_t				*fork_sem;
 	sem_t 				*eat_sem;
-	// Mutex
-	/*pthread_mutex_t		*msg_mutex;
-	pthread_mutex_t		*die_mutex;
-	pthread_mutex_t		*fork_mutex;
-	pthread_mutex_t 	*eat_mutex;*/
 	pthread_t 			eat_thread;
 	pthread_t 			philo_health;
 }						t_content;
@@ -77,21 +72,30 @@ typedef struct			s_philo
 	int					l_fork;
 	int					r_fork;
 	long int 			t_limit;
-	// pthread_mutex_t		*msg_mutex;
-	// pthread_mutex_t		*philo_mutex;
 	sem_t 				*philo_sem;
 	int 				is_eating;
 }						t_philo;
-int 	g_must_eat;
-void					*philo_life(void *arg);
+
+int 					g_must_eat;
+
 void					create_philo(t_philo *philo);
+void					*ft_routine(void *arg);
 int						ft_atoi(const char *str);
 char					*ft_itoa(int n);
 size_t					ft_strlen(const char *str);
 char					*ft_strdup(const char *str);
 int						is_valid(char **argv, int argc);
 t_philo					*check_data(t_philo *philo, char **argv, int argc);
-t_philo					*init_sem(t_philo *philo, t_content cont);
-t_philo					*ft_HandleData(t_philo *philo, char **argv, int argc);
 long					get_time();
+t_philo					*ft_HandleData(t_philo *philo, char **argv, int argc);
+void					*check_health(void *arg);
+void					*count_eating_times(void *arg);
+void					take_fork(t_philo *philo);
+void					release_fork(t_philo *philo);
+void					eat_action(t_philo *philo);
+void					think_action(t_philo *philo);
+void					sleep_action(t_philo *philo);
+t_philo					*init_sem(t_philo *philo, t_content cont);
+void					clean_all(t_philo *philo);
+void					destroy_philo(t_philo *philo);
 #endif
