@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_two.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/11 16:44:29 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/11 22:11:13 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <sys/types.h>
+# include <sys/wait.h>
 # include <signal.h>
 # include <math.h>
 # include <semaphore.h>

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 14:30:17 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/11 17:02:31 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/11 22:08:38 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	eat_action(t_philo *philo)
 	sem_wait(philo->content.msg_sem);
 	philo->is_eating = 1;
 	printf("%ld\t%d%s\n", get_time() - philo->content.start, philo->id + 1, EAT);
-	int 	doneeat = philo->content.done;
+	/*int 	doneeat = philo->content.done;
 	sem_t  donee = sem_post()
 	sem_unlink(ft_itoa(philo))
-	sem_wait(&doneeat);
+	sem_wait(&doneeat);*/
 	if (philo->content.num_of_eat)
 	{
 		philo->content.reached_count++;
@@ -52,8 +52,8 @@ void	eat_action(t_philo *philo)
 			// g_must_eat += 1;
 		}
 	}
-	sem_post(&doneeat);
-	printf("r = %d\n", philo->content.done);
+	// sem_post(&doneeat);
+	// printf("r = %d\n", philo->content.done);
 	sem_post(philo->content.msg_sem);
 	usleep(1000 * philo->content.time_to_eat);
 	sem_post(philo->philo_sem);
