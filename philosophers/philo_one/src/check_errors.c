@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 10:57:13 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/09 17:10:44 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/12 14:13:32 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ static void	ft_free(char **data, int argc)
 	free(data);
 }
 
-int			is_valid(char **argv, int argc)
+int	is_valid(char **argv, int argc)
 {
 	int		i;
 	int		j;
 	char	**tmp;
 
-	if (!(tmp = (char **)malloc(sizeof(char *) * argc)))
+	tmp = (char **)malloc(sizeof(char *) * argc);
+	if (!tmp)
 		return (0);
 	i = -1;
 	while (++i < argc - 1)
@@ -54,32 +55,24 @@ int			is_valid(char **argv, int argc)
 t_philo	*check_data(t_philo *philo, char **argv, int argc)
 {
 	t_content	content;
-	int n_p;
-	int	t_d;
-	int	t_e;
-	int	t_s;
-	int n_e;
 
-	n_p = atoi(argv[1]);
-	t_d = atoi(argv[2]);
-	t_e = atoi(argv[3]);
-	t_s = atoi(argv[4]);
-	n_e = (argc == 6) ? atoi(argv[5]) : 0;
-	content.r_eat = 0;
 	content.e_eat = 0;
+	content.num_of_eat = 0;
 	content.n_philo = ft_atoi(argv[1]);
 	content.time_to_die = ft_atoi(argv[2]);
 	content.time_to_eat = ft_atoi(argv[3]);
 	content.time_to_sleep = ft_atoi(argv[4]);
-	content.num_of_eat = (argc == 6) ? ft_atoi(argv[5]) : 0;
+	if (argc == 6)
+		content.num_of_eat = ft_atoi(argv[5]);
 	if (content.num_of_eat)
 		content.e_eat = content.num_of_eat;
 	content.reached_count = 0;
 	g_must_eat = 0;
 	content.must_eat = 0;
-	if (n_p < 2 || t_d < 60 || t_e < 60
-	|| t_s < 60)
+	if (content.n_philo < 2 || content.time_to_die < 60)
 		return (NULL);
-	philo = init(philo, content);
+	else if (content.time_to_eat < 60 || content.time_to_sleep < 60)
+		return (NULL);
+	philo = init_mutex(philo, content);
 	return (philo);
 }

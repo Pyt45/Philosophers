@@ -6,11 +6,11 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 12:16:02 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/11 11:03:23 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/12 10:22:07 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo_two.h"
+#include "../include/philo_three.h"
 
 static int		ft_max(long int res, int sign)
 {

@@ -6,11 +6,11 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 11:02:26 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/11 11:03:27 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/12 10:22:10 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo_two.h"
+#include "../include/philo_three.h"
 
 char	*ft_itoa(int n)
 {

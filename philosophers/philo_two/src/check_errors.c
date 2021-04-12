@@ -6,13 +6,13 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 10:57:13 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/11 12:27:40 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/12 16:04:00 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_two.h"
 
-void	ft_free(char **data, int argc)
+static void	ft_free(char **data, int argc)
 {
 	int		i;
 
@@ -25,7 +25,7 @@ void	ft_free(char **data, int argc)
 	free(data);
 }
 
-int 	is_valid(char **argv, int argc)
+int	is_valid(char **argv, int argc)
 {
 	int		i;
 	int		j;

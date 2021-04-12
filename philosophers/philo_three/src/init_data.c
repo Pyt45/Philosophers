@@ -6,11 +6,11 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 09:46:15 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/11 10:53:08 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/12 10:21:37 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo_two.h"
+#include "../include/philo_three.h"
 
 t_philo	*ft_HandleData(t_philo *philo, char **argv, int argc)
 {

@@ -6,13 +6,12 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/09 17:10:34 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/12 15:46:10 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#ifndef PHILO_ONE
-# define PHILO_ONE
+#ifndef PHILO_ONE_H
+# define PHILO_ONE_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -31,55 +30,63 @@
 # define				EAT	" is eating"
 # define				SLEEP " is sleeping"
 # define				THINK " is thinking"
+# define				DIED " died"
+# define				END_EAT " reached the limit of eats"
 
-typedef struct			s_content
+typedef struct s_content
 {
 	int					time_to_die;
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					num_of_eat;
-	int 				e_eat;
-	int 				r_eat;
-	int 				must_eat;
-	int 				n_philo;
-	int 				reached_count;
-	int 				*e_arr;
-	long 				start;
-	long 				s_start;
+	int					e_eat;
+	int					must_eat;
+	int					n_philo;
+	int					reached_count;
+	long				start;
+	long				s_start;
 	pthread_mutex_t		*msg_mutex;
 	pthread_mutex_t		*die_mutex;
 	pthread_mutex_t		*fork_mutex;
-	pthread_mutex_t 	*eat_mutex;
-	pthread_t 			eat_thread;
-	pthread_t 			philo_health;
+	pthread_mutex_t		*eat_mutex;
+	pthread_t			eat_th;
+	pthread_t			philo_health;
 }						t_content;
 
-typedef struct			s_philo
+typedef struct s_philo
 {
 	t_content			content;
 	int					num_of_philo;
-	struct timeval		start;
-	struct timeval		end;
-	long int 			s_start;
+	long int			s_start;
 	pthread_t			thread;
 	int					id;
-	int 				index_p;
 	int					l_fork;
 	int					r_fork;
-	long int 			t_limit;
-	pthread_mutex_t		*msg_mutex;
+	long int			t_limit;
 	pthread_mutex_t		*philo_mutex;
-	int 				is_eating;
+	int					is_eating;
 }						t_philo;
-int 	g_must_eat;
-void					*philo_life(void *arg);
+
+int						g_must_eat;
 void					create_philo(t_philo *philo);
 int						ft_atoi(const char *str);
 size_t					ft_strlen(const char *str);
 char					*ft_strdup(const char *str);
 int						is_valid(char **argv, int argc);
-t_philo					*check_data(t_philo *philo, char **argv, int argc);
+void					*routine(void *arg);
+void					sleep_action(t_philo *philo);
+void					think_action(t_philo *philo);
+void					eat_action(t_philo *philo);
+void					release_fork(t_philo *philo);
+void					take_fork(t_philo *philo);
+void					*check_count(void *arg);
+void					*check_health(void *arg);
 t_philo					*init(t_philo *philo, t_content cont);
-t_philo					*ft_HandleData(t_philo *philo, char **argv, int argc);
-long					get_time();
+t_philo					*check_data(t_philo *philo, char **argv, int argc);
+t_philo					*init_mutex(t_philo *philo, t_content cont);
+t_philo					*ft_handle_data(t_philo *philo, char **argv, int argc);
+long					get_time(void);
+void					destroy_env(t_philo *philo);
+void					print_status(long t, char *msg, t_philo *ph, int bl);
+
 #endif

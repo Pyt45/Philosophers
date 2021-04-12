@@ -6,7 +6,7 @@
 #    By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/25 09:44:47 by aaqlzim           #+#    #+#              #
-#    Updated: 2021/04/11 14:37:55 by aaqlzim          ###   ########.fr        #
+#    Updated: 2021/04/12 10:22:20 by aaqlzim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ MAIN = src/main.c
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(MAIN) $(INC)/philo_two.h
+$(NAME): $(OBJ) $(MAIN) $(INC)/philo_three.h
 	@ar rcs $(PHILO_LIB) $(OBJ)
 	@gcc $(MAIN) $(PHILO_LIB) $(OBJ) -lpthread -o $(NAME)
 	@echo "SUCCESS!"

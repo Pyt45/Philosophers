@@ -6,11 +6,11 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:25:42 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/11 11:01:06 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/12 10:22:04 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo_two.h"
+#include "../include/philo_three.h"
 
 void	clean_all(t_philo *philo)
 {

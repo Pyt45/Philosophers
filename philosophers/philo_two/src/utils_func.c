@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 11:02:26 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/11 11:03:27 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/12 16:47:36 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,17 @@ char	*ft_itoa(int n)
 	int		len;
 
 	len = 1;
-	n < 0 ? ++len : 0;
-	nbr = n < 0 ? -(long)n : n;
+	nbr = n;
 	while (nbr > 9)
 	{
 		nbr /= 10;
 		len++;
 	}
-	if (!(ptr = (char *)malloc(sizeof(char) * (len + 1))))
+	ptr = (char *)malloc(sizeof(char) * (len + 1));
+	if (!ptr)
 		return (NULL);
 	ptr[len] = '\0';
-	n < 0 ? *ptr = '-' : 0;
-	nbr = n < 0 ? -(long)n : n;
+	nbr = n;
 	while (nbr > 9)
 	{
 		ptr[--len] = (nbr % 10) + '0';
@@ -40,7 +39,7 @@ char	*ft_itoa(int n)
 	return (ptr);
 }
 
-char		*ft_strdup(const char *str)
+char	*ft_strdup(const char *str)
 {
 	char	*ptr;
 	char	*rptr;
@@ -49,7 +48,8 @@ char		*ft_strdup(const char *str)
 	if (!str)
 		return (NULL);
 	len = ft_strlen(str) + 1;
-	if (!(ptr = (char *)malloc(sizeof(char) * len)))
+	ptr = (char *)malloc(sizeof(char) * len);
+	if (!ptr)
 		return (NULL);
 	rptr = ptr;
 	while (*str)
@@ -58,9 +58,10 @@ char		*ft_strdup(const char *str)
 	return (rptr);
 }
 
-long	get_time()
+long	get_time(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
+
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + tv.tv_usec / 1000);
 }

@@ -6,13 +6,13 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 12:16:02 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/03/23 17:31:49 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/12 15:28:53 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_one.h"
 
-static int		ft_max(long int res, int sign)
+static	int	ft_max(long int res, int sign)
 {
 	if (res < 0 && sign > 0)
 		return (-1);
@@ -21,16 +21,13 @@ static int		ft_max(long int res, int sign)
 	return (res);
 }
 
-int				ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int			sign;
 	int			rst;
 
 	sign = 1;
 	rst = 0;
-	while (*str == '\t' || *str == '\n' || *str == '\v'
-	|| *str == '\f' || *str == '\r' || *str == ' ')
-		str++;
 	if (*str == '-')
 	{
 		sign = -1;
@@ -50,7 +47,7 @@ int				ft_atoi(const char *str)
 	return (ft_max(rst, sign));
 }
 
-size_t		ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 
@@ -60,7 +57,7 @@ size_t		ft_strlen(const char *str)
 	return (i);
 }
 
-char		*ft_strdup(const char *str)
+char	*ft_strdup(const char *str)
 {
 	char	*ptr;
 	char	*rptr;
@@ -69,7 +66,8 @@ char		*ft_strdup(const char *str)
 	if (!str)
 		return (NULL);
 	len = ft_strlen(str) + 1;
-	if (!(ptr = (char *)malloc(sizeof(char) * len)))
+	ptr = (char *)malloc(sizeof(char) * len);
+	if (!ptr)
 		return (NULL);
 	rptr = ptr;
 	while (*str)
@@ -78,9 +76,10 @@ char		*ft_strdup(const char *str)
 	return (rptr);
 }
 
-long	get_time()
+long	get_time(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
+
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + tv.tv_usec / 1000);
 }

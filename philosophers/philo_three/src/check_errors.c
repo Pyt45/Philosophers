@@ -6,11 +6,11 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 10:57:13 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/11 16:44:53 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/12 11:21:30 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo_two.h"
+#include "../include/philo_three.h"
 
 void	ft_free(char **data, int argc)
 {
@@ -58,7 +58,7 @@ t_philo	*check_data(t_philo *philo, char **argv, int argc)
 
 	content.e_eat = 0;
 	content.done = 0;
-	content.num_of_eat = 0;
+	content.num_of_eat = -1;
 	content.n_philo = ft_atoi(argv[1]);
 	content.time_to_die = ft_atoi(argv[2]);
 	content.time_to_eat = ft_atoi(argv[3]);

@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 14:30:17 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/11 10:59:37 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/12 17:48:08 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 void	take_fork(t_philo *philo)
 {
-	sem_wait(philo->content.fork_sem);
-	sem_wait(philo->content.msg_sem);
-	printf("%ld\t%d%s\n", get_time() - philo->content.start, philo->id + 1, TAKE_FORK);
-	sem_post(philo->content.msg_sem);
-	sem_wait(philo->content.fork_sem);
-	sem_wait(philo->content.msg_sem);
-	printf("%ld\t%d%s\n", get_time() - philo->content.start, philo->id + 1, TAKE_FORK);
-	sem_post(philo->content.msg_sem);
+	long	t;
+
+	if (sem_wait(philo->content.fork_sem) < 0)
+		return ;
+	t = get_time() - philo->content.start;
+	print_status(t, TAKE_FORK, philo, 1);
+	if (sem_wait(philo->content.fork_sem) < 0)
+		return ;
+	t = get_time() - philo->content.start;
+	print_status(t, TAKE_FORK, philo, 1);
 }
 
 void	release_fork(t_philo *philo)
@@ -32,12 +34,14 @@ void	release_fork(t_philo *philo)
 
 void	eat_action(t_philo *philo)
 {
-	sem_wait(philo->philo_sem);
+	long	t;
+
+	if (sem_wait(philo->philo_sem) < 0)
+		return ;
 	philo->content.s_start = get_time();
 	philo->t_limit = philo->content.s_start + philo->content.time_to_die;
-	sem_wait(philo->content.msg_sem);
-	philo->is_eating = 1;
-	printf("%ld\t%d%s\n", get_time() - philo->content.start, philo->id + 1, EAT);
+	t = get_time() - philo->content.start;
+	print_status(t, EAT, philo, 1);
 	if (philo->content.num_of_eat)
 	{
 		philo->content.reached_count++;
@@ -45,22 +49,23 @@ void	eat_action(t_philo *philo)
 		if (philo->content.reached_count == philo->content.e_eat)
 			g_must_eat += 1;
 	}
-	sem_post(philo->content.msg_sem);
 	usleep(1000 * philo->content.time_to_eat);
 	sem_post(philo->philo_sem);
 }
 
 void	think_action(t_philo *philo)
 {
-	sem_wait(philo->content.msg_sem);
-	printf("%ld\t%d%s\n", get_time() - philo->content.start, philo->id + 1, THINK);
-	sem_post(philo->content.msg_sem);
+	long	t;
+
+	t = get_time() - philo->content.start;
+	print_status(t, THINK, philo, 1);
 }
 
 void	sleep_action(t_philo *philo)
 {
-	sem_wait(philo->content.msg_sem);
-	printf("%ld\t%d%s\n", get_time() - philo->content.start, philo->id + 1, SLEEP);
-	sem_post(philo->content.msg_sem);
+	long	t;
+
+	t = get_time() - philo->content.start;
+	print_status(t, SLEEP, philo, 1);
 	usleep(1000 * philo->content.time_to_sleep);
 }

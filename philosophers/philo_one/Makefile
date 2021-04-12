@@ -6,7 +6,7 @@
 #    By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/25 09:44:47 by aaqlzim           #+#    #+#              #
-#    Updated: 2021/03/23 17:48:10 by aaqlzim          ###   ########.fr        #
+#    Updated: 2021/04/12 15:33:39 by aaqlzim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,10 @@ NAME = philo_one
 
 PHILO_LIB = philo_one.a
 
-SRC = 	src/create_thread.c \
-		src/utils.c src/check_errors.c
+SRC = 	src/create_philo.c src/manage_philo.c src/philo_actions.c \
+		src/init_mutex.c src/utils.c src/check_errors.c src/philo_destroy.c
 
-FLAGS = 
+FLAGS = -Wall -Wextra -Werror
 
 OBJ = $(SRC:.c=.o)
 
