@@ -6,33 +6,36 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:25:42 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/12 17:58:12 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/13 10:16:16 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_two.h"
 
+void	ft_free(t_philo *philo, char *str)
+{
+	if (philo)
+		free(philo);
+	else if (str)
+		free(str);
+}
+
 void	destroy_philo(t_philo *philo)
 {
 	int		i;
+	char	*name;
 
-	i = 0;
-	if (philo)
+	i = -1;
+	name = NULL;
+	i = -1;
+	while (++i < philo->content.n_philo)
 	{
-		sem_post(philo->content.msg_sem);
-		sem_close(philo->content.msg_sem);
-		// sem_post(philo->content.die_sem);
-		// sem_close(philo->content.die_sem);
-		sem_post(philo->content.eat_sem);
-		sem_close(philo->content.eat_sem);
-		sem_post(philo->philo_sem);
-		sem_close(philo->philo_sem);
-		while (i++ < philo->content.n_philo)
-			sem_post(philo[i].content.fork_sem);
-		// i = 0;
-		// while (i++ < philo->content.n_philo)
-		// 	sem_close(philo[i].content.fork_sem);
-		sem_close(philo->content.fork_sem);
-		free(philo);
+		name = ft_itoa(i + 1);
+		sem_unlink(name);
+		ft_free(NULL, name);
 	}
+	sem_unlink(MSG_SEM);
+	sem_unlink(FORK_SEM);
+	sem_unlink(DIE_SEM);
+	ft_free(philo, NULL);
 }

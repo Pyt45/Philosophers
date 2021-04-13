@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:15:23 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/12 15:46:10 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/13 16:34:07 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@
 # include <math.h>
 # include <errno.h>
 
-# define				SLEEP_ACTION 1
-# define				EAT_ACTION 2
-# define				DIE_ACTION 3
-# define				THINK_ACTION 4
 # define				TAKE_FORK " has taken a fork"
 # define				EAT	" is eating"
 # define				SLEEP " is sleeping"
@@ -39,24 +35,22 @@ typedef struct s_content
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					num_of_eat;
-	int					e_eat;
-	int					must_eat;
+	int					e_c;
+	int					is_eating;
 	int					n_philo;
-	int					reached_count;
+	int					done;
 	long				start;
 	long				s_start;
 	pthread_mutex_t		*msg_mutex;
 	pthread_mutex_t		*die_mutex;
 	pthread_mutex_t		*fork_mutex;
-	pthread_mutex_t		*eat_mutex;
-	pthread_t			eat_th;
+	pthread_t			e_th;
 	pthread_t			philo_health;
 }						t_content;
 
 typedef struct s_philo
 {
 	t_content			content;
-	int					num_of_philo;
 	long int			s_start;
 	pthread_t			thread;
 	int					id;
@@ -64,10 +58,8 @@ typedef struct s_philo
 	int					r_fork;
 	long int			t_limit;
 	pthread_mutex_t		*philo_mutex;
-	int					is_eating;
 }						t_philo;
 
-int						g_must_eat;
 void					create_philo(t_philo *philo);
 int						ft_atoi(const char *str);
 size_t					ft_strlen(const char *str);

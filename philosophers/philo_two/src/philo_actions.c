@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 14:30:17 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/12 17:48:08 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/13 15:55:55 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,15 @@ void	eat_action(t_philo *philo)
 
 	if (sem_wait(philo->philo_sem) < 0)
 		return ;
+	philo->content.is_eating = 1;
 	philo->content.s_start = get_time();
 	philo->t_limit = philo->content.s_start + philo->content.time_to_die;
 	t = get_time() - philo->content.start;
 	print_status(t, EAT, philo, 1);
-	if (philo->content.num_of_eat)
-	{
-		philo->content.reached_count++;
-		philo->content.num_of_eat--;
-		if (philo->content.reached_count == philo->content.e_eat)
-			g_must_eat += 1;
-	}
 	usleep(1000 * philo->content.time_to_eat);
+	if (philo->content.e_c != 0)
+		philo->content.e_c--;
+	philo->content.is_eating = 0;
 	sem_post(philo->philo_sem);
 }
 

@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:14:36 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/12 12:35:36 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/13 16:38:19 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	run_child_process(t_philo *philo)
 {
 	philo->content.s_start = get_time();
 	philo->t_limit = philo->content.s_start + philo->content.time_to_die;
-	pthread_create(&philo->content.philo_health, NULL, check_health, (void *)philo);
+	pthread_create(&philo->content.philo_health, NULL,
+		check_health, (void *)philo);
 	pthread_detach(philo->content.philo_health);
 	while (1)
 	{
@@ -38,9 +39,10 @@ int	main(int argc, char **argv)
 	t_philo	*philo;
 
 	philo = NULL;
-	philo = ft_HandleData(philo, argv, argc);
+	philo = ft_handle_data(philo, argv, argc);
 	if (!philo)
 		return (-1);
 	start_simulation(philo);
+	destroy_philo(philo);
 	return (0);
 }

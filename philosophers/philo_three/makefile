@@ -6,7 +6,7 @@
 #    By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/25 09:44:47 by aaqlzim           #+#    #+#              #
-#    Updated: 2021/04/12 10:22:20 by aaqlzim          ###   ########.fr        #
+#    Updated: 2021/04/13 16:54:54 by aaqlzim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ PHILO_LIB = philo_three.a
 SRC = 	src/init_data.c src/init_sem.c src/manage_philo.c src/utils_func.c \
 		src/utils.c src/check_errors.c src/philo_actions.c src/philo_destroy.c
 
-FLAGS = 
+FLAGS = -Wall -Wextra -Werror
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,13 +6,13 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 12:16:02 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/12 10:22:07 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/13 16:25:58 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_three.h"
 
-static int		ft_max(long int res, int sign)
+static	int	ft_max(long int res, int sign)
 {
 	if (res < 0 && sign > 0)
 		return (-1);
@@ -21,16 +21,13 @@ static int		ft_max(long int res, int sign)
 	return (res);
 }
 
-int				ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int			sign;
 	int			rst;
 
 	sign = 1;
 	rst = 0;
-	while (*str == '\t' || *str == '\n' || *str == '\v'
-	|| *str == '\f' || *str == '\r' || *str == ' ')
-		str++;
 	if (*str == '-')
 	{
 		sign = -1;
@@ -50,7 +47,7 @@ int				ft_atoi(const char *str)
 	return (ft_max(rst, sign));
 }
 
-size_t		ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 

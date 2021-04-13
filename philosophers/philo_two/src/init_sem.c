@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 09:45:59 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/12 17:45:21 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/13 15:58:34 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ t_philo	*init_sem(t_philo *philo, t_content cont)
 		return (NULL);
 	while (++i < c.n_philo)
 	{
-		philo[i].num_of_philo = c.n_philo;
 		philo[i].content = c;
 		philo[i].id = i;
+		philo[i].content.done = 0;
+		philo[i].content.is_eating = 0;
+		philo[i].content.e_c = c.num_of_eat;
 		name = ft_itoa(i + 1);
 		sem_unlink(name);
 		philo[i].philo_sem = sem_open(name, O_CREAT, 0666, 1);

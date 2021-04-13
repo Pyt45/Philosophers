@@ -6,7 +6,7 @@
 /*   By: aaqlzim <aaqlzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:25:36 by aaqlzim           #+#    #+#             */
-/*   Updated: 2021/04/12 15:23:56 by aaqlzim          ###   ########.fr       */
+/*   Updated: 2021/04/13 15:17:58 by aaqlzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,15 @@ t_philo	*init_mutex(t_philo *philo, t_content cont)
 		philo[i].philo_mutex = malloc(sizeof(pthread_mutex_t));
 		if (!philo[i].philo_mutex)
 			return (NULL);
-		philo[i].num_of_philo = content.n_philo;
 		philo[i].content = content;
 		philo[i].id = i;
+		philo[i].content.done = 0;
+		philo[i].content.is_eating = 0;
+		philo[i].content.e_c = content.num_of_eat;
 		philo[i].r_fork = i;
 		philo[i].l_fork = (i + 1) % content.n_philo;
-		philo[i].is_eating = 0;
-		if (pthread_mutex_init(philo[i].philo_mutex, NULL))
-			return (NULL);
-		if (pthread_mutex_init(&philo[i].content.fork_mutex[i], NULL))
-			return (NULL);
+		pthread_mutex_init(philo[i].philo_mutex, NULL);
+		pthread_mutex_init(&philo[i].content.fork_mutex[i], NULL);
 	}
 	return (philo);
 }
